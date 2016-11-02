@@ -12,7 +12,8 @@
         }
     ],
     "require": {
-        "yiisoft/yii2": "*"
+        "yiisoft/yii2": "*",
+        "pheme/yii2-settings": "*"
     },
     "autoload": {
         "psr-4": {
