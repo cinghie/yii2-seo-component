@@ -1,0 +1,22 @@
+{
+    "name": "cinghie/yii2-seo-component",
+    "description": "Yii2 Component to manage SEO data and metadata",
+    "keywords": ["yii2", "seo", "yii2 seo", "yii2 metadata","yii2 seo metadata"],
+    "homepage": "https://github.com/cinghie/yii2-cookie-consent",
+    "type": "yii2-extension",
+    "authors": [
+        {
+            "name": "Gogodigital.it",
+            "email": "info@gogodigital.it",
+            "homepage": "http://www.gogodigital.it/"
+        }
+    ],
+    "require": {
+        "yiisoft/yii2": "*",
+    },
+    "autoload": {
+        "psr-4": {
+            "cinghie\\seo\\": ""
+        }
+    }
+}
