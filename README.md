@@ -1,6 +1,6 @@
 Yii2 SEO Component
 -------------------
-Yii2 Component to manage SEO data and metadata
+Yii2 Component to manage SEO data and metadata developed starting from https://github.com/jpunanua/yii2-seotools/blob/master/Component.php
 
 Installation
 -------------
@@ -31,3 +31,4 @@ Configuration
     
 ]
 ```
+

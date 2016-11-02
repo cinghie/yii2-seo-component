@@ -1,5 +1,15 @@
 <?php
 
+/**
+ * @copyright Copyright &copy; Gogodigital Srls
+ * @company Gogodigital Srls - Wide ICT Solutions
+ * @website http://www.gogodigital.it
+ * @github https://github.com/cinghie/yii2-seo-component
+ * @license GNU GENERAL PUBLIC LICENSE VERSION 3
+ * @package yii2-seo-component
+ * @version 0.1.0
+ */
+
 namespace cinghie\seo;
 
 use Yii;
@@ -112,6 +122,7 @@ class Seo extends Component
 
     /**
      * Set Meta Informations
+     * @param array $settings
      */
     public function setMeta($settings) {
         $this->setTitle($settings['title'])
