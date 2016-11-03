@@ -25,8 +25,12 @@ class Seo extends Component
     public function setTitle($title="")
     {
         if (!empty($title)) {
-            Yii::$app->view->registerMetaTag(['name' => 'title', 'content' => $title], 'title');
-            Yii::$app->view->registerMetaTag(['name' => 'og:title', 'content' => $title], 'og:title');
+            Yii::$app->view->registerMetaTag(
+                ['name' => 'title', 'content' => $title], 'title'
+            );
+            Yii::$app->view->registerMetaTag(
+                ['name' => 'og:title', 'content' => $title], 'og:title'
+            );
             Yii::$app->view->title = $title;
         }
         return $this;
@@ -40,11 +44,19 @@ class Seo extends Component
     public function setDescription($description="")
     {
         if (!empty($description)) {
-            Yii::$app->view->registerMetaTag(['name' => 'description', 'content' => $description], 'description');
-            Yii::$app->view->registerMetaTag(['name' => 'og:description', 'content' => $description], 'og:description');
-        } else if(Yii::$app->settings->get('siteDescription', 'Configurations')) {
-            Yii::$app->view->registerMetaTag(['name' => 'description', 'content' => Yii::$app->settings->get('siteDescription', 'Configurations')], 'description');
-            Yii::$app->view->registerMetaTag(['name' => 'og:description', 'content' => Yii::$app->settings->get('siteDescription', 'Configurations')], 'og:description');
+            Yii::$app->view->registerMetaTag(
+                ['name' => 'description', 'content' => $description], 'description'
+            );
+            Yii::$app->view->registerMetaTag(
+                ['name' => 'og:description', 'content' => $description], 'og:description'
+            );
+        } elseif(Yii::$app->settings->get('siteDescription', 'Configurations')) {
+            Yii::$app->view->registerMetaTag(
+                ['name' => 'description', 'content' => Yii::$app->settings->get('siteDescription', 'Configurations')], 'description'
+            );
+            Yii::$app->view->registerMetaTag(
+                ['name' => 'og:description', 'content' => Yii::$app->settings->get('siteDescription', 'Configurations')], 'og:description'
+            );
         }
         return $this;
     }
@@ -57,9 +69,13 @@ class Seo extends Component
     public function setKeywords($keywords="")
     {
         if (!empty($keywords)) {
-            Yii::$app->view->registerMetaTag(['name' => 'keywords', 'content' => $keywords], 'keywords');
+            Yii::$app->view->registerMetaTag(
+                ['name' => 'keywords', 'content' => $keywords ], 'keywords'
+            );
         } elseif (Yii::$app->settings->get('siteKeywords', 'Configurations')) {
-            Yii::$app->view->registerMetaTag(['name' => 'keywords', 'content' => Yii::$app->settings->get('siteKeywords', 'Configurations')], 'keywords');
+            Yii::$app->view->registerMetaTag(
+                ['name' => 'keywords', 'content' => Yii::$app->settings->get('siteKeywords', 'Configurations')], 'keywords'
+            );
         }
         return $this;
     }
@@ -72,9 +88,13 @@ class Seo extends Component
     public function setAuthor($author="")
     {
         if (!empty($author)) {
-            Yii::$app->view->registerMetaTag(['name' => 'author', 'content' => $author], 'author');
+            Yii::$app->view->registerMetaTag(
+                ['name' => 'author', 'content' => $author], 'author'
+            );
         } elseif (Yii::$app->settings->get('siteAuthor', 'Configurations')) {
-            Yii::$app->view->registerMetaTag(['name' => 'author', 'content' => Yii::$app->settings->get('siteAuthor', 'Configurations')], 'author');
+            Yii::$app->view->registerMetaTag(
+                ['name' => 'author', 'content' => Yii::$app->settings->get('siteAuthor', 'Configurations')], 'author'
+            );
         }
         return $this;
     }
@@ -87,9 +107,13 @@ class Seo extends Component
     public function setCopyright($copyright="")
     {
         if (!empty($copyright)) {
-            Yii::$app->view->registerMetaTag(['name' => 'copyright', 'content' => $copyright], 'copyright');
+            Yii::$app->view->registerMetaTag(
+                ['name' => 'copyright', 'content' => $copyright], 'copyright'
+            );
         } elseif (Yii::$app->settings->get('siteCopyright', 'Configurations')) {
-            Yii::$app->view->registerMetaTag(['name' => 'copyright', 'content' => Yii::$app->settings->get('siteCopyright', 'Configurations')], 'copyright');
+            Yii::$app->view->registerMetaTag(
+                ['name' => 'copyright', 'content' => Yii::$app->settings->get('siteCopyright', 'Configurations')], 'copyright'
+            );
         }
         return $this;
     }
@@ -102,11 +126,68 @@ class Seo extends Component
     public function setRobots($robots="")
     {
         if (!empty($robots)) {
-            Yii::$app->view->registerMetaTag(['name' => 'robots', 'content' => $robots], 'robots');
+            Yii::$app->view->registerMetaTag(
+                ['name' => 'robots', 'content' => $robots], 'robots'
+            );
         } elseif (Yii::$app->settings->get('siteRobots', 'Configurations')) {
-            Yii::$app->view->registerMetaTag(['name' => 'robots', 'content' => Yii::$app->settings->get('siteRobots', 'Configurations')], 'robots');
+            Yii::$app->view->registerMetaTag(
+                ['name' => 'robots', 'content' => Yii::$app->settings->get('siteRobots', 'Configurations')], 'robots'
+            );
         }
         return $this;
+    }
+
+    /**
+     * Set Social App meta tag
+     * @param array
+     * @return $this
+     */
+    public function setSocialAPP($metaAPP=[])
+    {
+        // Apple iTunes APP ID
+        if (!empty($metaAPP['apple-itunes-app'])) {
+            Yii::$app->view->registerMetaTag([
+                'name' => 'apple-itunes-app',
+                'content' => $metaAPP['apple-itunes-app']],
+                $metaAPP['apple-itunes-app']
+            );
+        } else if (Yii::$app->settings->get('appleItunesApp', 'Configurations')){
+            Yii::$app->view->registerMetaTag([
+                'name' => 'apple-itunes-app',
+                'content' => Yii::$app->settings->get('appleItunesApp', 'Configurations')],
+                Yii::$app->settings->get('appleItunesApp', 'Configurations')
+            );
+        }
+
+        // Android Play Store APP Package
+        if (!empty($metaAPP['google-play-app'])) {
+            Yii::$app->view->registerMetaTag([
+                'name' => 'google-play-app',
+                'content' => "app-id=".$metaAPP['google-play-app']],
+                'google-play-app'
+            );
+        } else if (Yii::$app->settings->get('androidPlayStore', 'Configurations')){
+            Yii::$app->view->registerMetaTag([
+                'name' => 'google-play-app',
+                'content' => "app-id=".Yii::$app->settings->get('androidPlayStore', 'Configurations')],
+                'google-play-app'
+            );
+        }
+
+        // Facebook APP ID
+        if (!empty($metaAPP['fb:app_id'])) {
+            Yii::$app->view->registerMetaTag([
+                'name' => 'fb:app_id',
+                'content' => $metaAPP['fb:app_id']],
+                'fb:app_id'
+            );
+        } else if (Yii::$app->settings->get('facebookApp', 'Configurations')){
+            Yii::$app->view->registerMetaTag([
+                'name' => 'fb:app_id',
+                'content' => Yii::$app->settings->get('facebookApp', 'Configurations')],
+                'fb:app_id'
+            );
+        }
     }
 
     /**
@@ -116,7 +197,9 @@ class Seo extends Component
      */
     public function setCanonical($url)
     {
-        Yii::$app->view->registerLinkTag(['href' => $url, 'rel' => 'canonical'], 'canonical');
+        Yii::$app->view->registerLinkTag(
+            ['href' => $url, 'rel' => 'canonical'], 'canonical'
+        );
         return $this;
     }
 
@@ -130,7 +213,8 @@ class Seo extends Component
              ->setKeywords()
              ->setRobots()
              ->setAuthor()
-             ->setCopyright();
+             ->setCopyright()
+             ->setSocialAPP();
     }
     
 }
