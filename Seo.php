@@ -144,50 +144,74 @@ class Seo extends Component
      */
     public function setSocialAPP($metaAPP=[])
     {
-        // Apple iTunes APP ID
-        if (!empty($metaAPP['apple-itunes-app'])) {
-            Yii::$app->view->registerMetaTag([
-                'name' => 'apple-itunes-app',
-                'content' => $metaAPP['apple-itunes-app']],
-                $metaAPP['apple-itunes-app']
-            );
-        } else if (Yii::$app->settings->get('appleItunesApp', 'Configurations')){
-            Yii::$app->view->registerMetaTag([
-                'name' => 'apple-itunes-app',
-                'content' => Yii::$app->settings->get('appleItunesApp', 'Configurations')],
-                Yii::$app->settings->get('appleItunesApp', 'Configurations')
-            );
-        }
-
-        // Android Play Store APP Package
-        if (!empty($metaAPP['google-play-app'])) {
-            Yii::$app->view->registerMetaTag([
-                'name' => 'google-play-app',
-                'content' => "app-id=".$metaAPP['google-play-app']],
-                'google-play-app'
-            );
-        } else if (Yii::$app->settings->get('androidPlayStore', 'Configurations')){
-            Yii::$app->view->registerMetaTag([
-                'name' => 'google-play-app',
-                'content' => "app-id=".Yii::$app->settings->get('androidPlayStore', 'Configurations')],
-                'google-play-app'
-            );
-        }
-
         // Facebook APP ID
         if (!empty($metaAPP['fb:app_id'])) {
             Yii::$app->view->registerMetaTag([
-                'name' => 'fb:app_id',
-                'content' => $metaAPP['fb:app_id']],
-                'fb:app_id'
+                'name' => 'fb:app_id', 'content' => $metaAPP['fb:app_id']], 'fb:app_id'
             );
         } else if (Yii::$app->settings->get('facebookApp', 'Configurations')){
             Yii::$app->view->registerMetaTag([
-                'name' => 'fb:app_id',
-                'content' => Yii::$app->settings->get('facebookApp', 'Configurations')],
-                'fb:app_id'
+                'name' => 'fb:app_id', 'content' => Yii::$app->settings->get('facebookApp', 'Configurations')], 'fb:app_id'
             );
         }
+        // Apple iTunes APP ID
+        if (!empty($metaAPP['apple-itunes-app'])) {
+            Yii::$app->view->registerMetaTag([
+                'name' => 'apple-itunes-app', 'content' => $metaAPP['apple-itunes-app']], $metaAPP['apple-itunes-app']
+            );
+        } else if (Yii::$app->settings->get('appleItunesApp', 'Configurations')){
+            Yii::$app->view->registerMetaTag([
+                'name' => 'apple-itunes-app', 'content' => Yii::$app->settings->get('appleItunesApp', 'Configurations')], Yii::$app->settings->get('appleItunesApp', 'Configurations')
+            );
+        }
+        // Android Play Store APP Package
+        if (!empty($metaAPP['google-play-app'])) {
+            Yii::$app->view->registerMetaTag([
+                'name' => 'google-play-app', 'content' => "app-id=".$metaAPP['google-play-app']], 'google-play-app'
+            );
+        } else if (Yii::$app->settings->get('androidPlayStore', 'Configurations')){
+            Yii::$app->view->registerMetaTag([
+                'name' => 'google-play-app', 'content' => "app-id=".Yii::$app->settings->get('androidPlayStore', 'Configurations')], 'google-play-app'
+            );
+        }
+        return $this;
+    }
+
+    /**
+     * Set Verifications meta tag
+     * @param array
+     * @return $this
+     */
+    public function setVerifyCodes($verifyCodes=[])
+    {
+        if (!empty($verifyCode)) {
+            foreach($verifyCode as $key => $value) {
+                Yii::$app->view->registerMetaTag(
+                    ['name' => $key, 'content' => $value], $key
+                );
+            }
+        }
+        if(Yii::$app->settings->get('alexaVerify', 'Configurations')) {
+            Yii::$app->view->registerMetaTag(
+                ['name' => 'alexaVerifyID', 'content' => Yii::$app->settings->get('alexaVerify', 'Configurations')], 'alexaVerifyID'
+            );
+        }
+        if(Yii::$app->settings->get('bingVerify', 'Configurations')) {
+            Yii::$app->view->registerMetaTag(
+                ['name' => 'google-site-verification', 'content' => Yii::$app->settings->get('bingVerify', 'Configurations')], 'google-site-verification'
+            );
+        }
+        if(Yii::$app->settings->get('googleVerify', 'Configurations')) {
+            Yii::$app->view->registerMetaTag(
+                ['name' => 'msvalidate.01', 'content' => Yii::$app->settings->get('googleVerify', 'Configurations')], 'msvalidate.01'
+            );
+        }
+        if(Yii::$app->settings->get('yandexVerify', 'Configurations')) {
+            Yii::$app->view->registerMetaTag(
+                ['name' => 'yandex-verification', 'content' => Yii::$app->settings->get('yandexVerify', 'Configurations')], 'yandex-verification'
+            );
+        }
+        return $this;
     }
 
     /**
@@ -207,14 +231,16 @@ class Seo extends Component
      * Set Meta Informations
      * @param array $settings
      */
-    public function setMeta($settings) {
+    public function setMeta($settings)
+    {
         $this->setTitle($settings['title'])
              ->setDescription()
              ->setKeywords()
              ->setRobots()
              ->setAuthor()
              ->setCopyright()
-             ->setSocialAPP();
+             ->setSocialAPP()
+             ->setVerifyCodes();
     }
     
 }
