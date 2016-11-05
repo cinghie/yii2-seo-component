@@ -3,6 +3,20 @@ Yii2 SEO Component
 Yii2 Component to manage SEO data and metadata developed starting from  
 https://github.com/jpunanua/yii2-seotools/blob/master/Component.php
 
+Features
+---------
+
+ - setTitle
+ - setDescription
+ - setKeywords
+ - setAuthor
+ - setCopyright
+ - setRobots
+ - setSocialAPP
+ - setVerifyCodes
+ - setMicroData
+ - setCanonical
+
 Installation
 -------------
 
@@ -47,5 +61,5 @@ Yii::$app->seo->setMeta([
 Changelog
 ----------
 
- - 0.1.0 - Initial Release
+ - 1.0.0 - Initial Release
  
