@@ -13,6 +13,7 @@
     ],
     "require": {
         "yiisoft/yii2": "*",
+        "nirvana-msu/yii2-jsonld-helper": "*",
         "pheme/yii2-settings": "*"
     },
     "autoload": {
