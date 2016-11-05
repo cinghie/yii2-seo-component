@@ -50,12 +50,16 @@ Configuration
 Usage
 ------
 
-Once the extension is installed, simply use it in your code by:
+Once the extension is installed, simply use it in your code adding on your main view:
 
 ```
-Yii::$app->seo->setMeta([
-    'title' => $this->title
-]);
+Yii::$app->seo->setMeta(['title' => $this->title]);
+```
+
+and on rendering your page you can set your meta information like:
+
+```
+Yii::$app->seo->setDescrption('Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua');
 ```
 
 Changelog
