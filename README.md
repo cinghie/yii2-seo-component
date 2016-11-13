@@ -62,6 +62,13 @@ and on rendering your page you can set your meta information like:
 Yii::$app->seo->setDescrption('Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua');
 ```
 
+or can manually set Microdata Snippet like:
+
+```
+setMicrodata($type,$name,$email,$phone,$logo,$url=);
+```
+
+
 Changelog
 ----------
 

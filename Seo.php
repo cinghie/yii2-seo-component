@@ -14,6 +14,7 @@ namespace cinghie\seo;
 
 use Yii;
 use yii\base\Component;
+use yii\helpers\Html;
 
 class Seo extends Component 
 {
@@ -219,6 +220,103 @@ class Seo extends Component
      * @param string $url
      * @return $this
      */
+    public function setMicrodata($type="",$name="",$email="",$phone="",$logo="",$url="")
+    {
+        if(intval(Yii::$app->settings->get('siteMicrodata', 'Configurations')))
+        {
+            $microdata = '{"@context": "http://schema.org",';
+
+            /*
+             * Adding Type
+             */
+            if($type) {
+                $microdata .= '"@type": "' . $type . '",';
+            } elseif(Yii::$app->settings->get('metaType', 'Configurations')) {
+                $microdata .= '"@type": "' . Yii::$app->settings->get('metaType', 'Configurations') . '",';
+            }
+
+            /*
+             * Adding Name
+             */
+            if($name) {
+                $microdata .= '"name": "' . $name . '",';
+            } elseif(Yii::$app->settings->get('metaName', 'Configurations')) {
+                $microdata .= '"name": "' . Yii::$app->settings->get('metaName', 'Configurations') . '",';
+            }
+
+            /*
+             * Adding Email
+             */
+            if($email) {
+                $microdata .= '"email": "' . $email . '",';
+            } elseif(Yii::$app->settings->get('metaEmail', 'Configurations')) {
+                $microdata .= '"email": "' . Yii::$app->settings->get('metaEmail', 'Configurations') . '",';
+            }
+
+            /*
+             * Adding Telephone
+             */
+            if($phone) {
+                $microdata .= '"telephone": "' . $phone . '",';
+            } elseif(Yii::$app->settings->get('metaPhone', 'Configurations')) {
+                $microdata .= '"telephone": "' . Yii::$app->settings->get('metaPhone', 'Configurations') . '",';
+            }
+
+            /*
+             * Adding Logo
+             */
+            if($logo) {
+                $microdata .= '"logo": "' . $logo . '",';
+            } elseif(Yii::$app->settings->get('metaImg', 'Configurations')) {
+                $microdata .= '"logo": "' . Yii::$app->settings->get('metaImg', 'Configurations') . '",';
+            }
+
+            /*
+             * Adding URL
+             */
+            if($url) {
+                $microdata .= '"url": "' . $url . '",';
+            } elseif(Yii::$app->settings->get('metaUrl', 'Configurations')) {
+                $microdata .= '"url": "' . Yii::$app->settings->get('metaUrl', 'Configurations') . '",';
+            }
+
+            /*
+             * Adding Social Pages
+             */
+            if( Yii::$app->settings->get('facebookPage', 'Configurations') || Yii::$app->settings->get('googlePlusPage', 'Configurations') || Yii::$app->settings->get('twitterPage', 'Configurations') )
+            {
+                $microdata .= '"sameAs":[';
+
+                if(Yii::$app->settings->get('facebookPage', 'Configurations'))
+                    $microdata .= '"'.Yii::$app->settings->get('facebookPage', 'Configurations').'",';
+
+                if(Yii::$app->settings->get('googlePlusPage', 'Configurations'))
+                    $microdata .= '"'.Yii::$app->settings->get('googlePlusPage', 'Configurations').'",';
+
+                if(Yii::$app->settings->get('twitterPage', 'Configurations'))
+                    $microdata .= '"'.Yii::$app->settings->get('twitterPage', 'Configurations').'",';
+
+                $microdata = trim($microdata, ",");
+
+                $microdata .= ']';
+            } else {
+
+                $microdata = trim($microdata, ",");
+
+            }
+
+            $microdata .= '}';
+
+            $view = Yii::$app->getView();
+            $view->registerJs($microdata,$view::POS_HEAD);
+        }
+    }
+
+    /**
+     * Register Canonical url
+     * @param string $url
+     * @return $this
+     */
     public function setCanonical($url)
     {
         Yii::$app->view->registerLinkTag(
@@ -240,7 +338,8 @@ class Seo extends Component
              ->setAuthor()
              ->setCopyright()
              ->setSocialAPP()
-             ->setVerifyCodes();
+             ->setVerifyCodes()
+             ->setMicrodata();
     }
     
 }
