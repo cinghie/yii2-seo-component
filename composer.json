@@ -1,9 +1,15 @@
 {
     "name": "cinghie/yii2-seo-component",
     "description": "Yii2 Component to manage SEO data and metadata",
-    "keywords": ["yii2", "seo", "yii2 seo", "yii2 metadata","yii2 seo metadata"],
+    "keywords": [
+        "yii2 seo", 
+        "yii2 search engine optimization", 
+        "yii2 metadata",
+        "yii2 seo meta"
+    ],
     "homepage": "https://github.com/cinghie/yii2-cookie-consent",
     "type": "yii2-extension",
+    "license": "BSD-3-Clause",
     "authors": [
         {
             "name": "Gogodigital.it",
