@@ -67,10 +67,3 @@ or can manually set Microdata Snippet like:
 ```
 setMicrodata($type,$name,$email,$phone,$logo,$url=);
 ```
-
-
-Changelog
-----------
-
- - 1.0.0 - Initial Release
- 
