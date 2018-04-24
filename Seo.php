@@ -308,7 +308,7 @@ class Seo extends Component
             $microdata .= '}';
 
             $view = Yii::$app->getView();
-            $view->registerJs($microdata,$view::POS_HEAD);
+	        echo Html::script($microdata, ['type' => 'application/ld+json']);
         }
     }
 
@@ -338,8 +338,7 @@ class Seo extends Component
              ->setAuthor()
              ->setCopyright()
              ->setSocialAPP()
-             ->setVerifyCodes()
-             ->setMicrodata();
+             ->setVerifyCodes();
     }
     
 }
