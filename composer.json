@@ -19,7 +19,8 @@
     ],
     "require": {
         "yiisoft/yii2": "~2.0.14",
-        "pheme/yii2-settings": "@dev"
+        "pheme/yii2-settings": "@dev",
+        "spatie/schema-org": "@dev"
     },
     "autoload": {
         "psr-4": {
