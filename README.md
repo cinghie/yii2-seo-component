@@ -1,5 +1,12 @@
 Yii2 SEO Component
 -------------------
+
+![Latest Stable Version](https://img.shields.io/packagist/v/cinghie/yii2-seo-component.svg)
+![License](https://img.shields.io/packagist/l/cinghie/yii2-seo-component.svg)
+![Latest Release Date](https://img.shields.io/github/release-date/cinghie/yii2-seo-component.svg)
+![Latest Commit](https://img.shields.io/github/last-commit/cinghie/yii2-seo-component.svg)
+[![Total Downloads](https://img.shields.io/packagist/dt/cinghie/yii2-seo-component.svg)](https://packagist.org/packages/cinghie/yii2-seo-component)
+
 Yii2 Component to manage SEO data and metadata developed starting from  
 https://github.com/jpunanua/yii2-seotools/blob/master/Component.php
 
