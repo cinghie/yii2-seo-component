@@ -199,6 +199,28 @@ class Seo extends Component
         return $this;
     }
 
+	/**
+	 * Set Facebook APP ID
+	 *
+	 * @param array $metaAPP
+	 *
+	 * @return $this
+	 */
+	public function setFacebookAPPId(array $metaAPP = [])
+    {
+	    if (!empty($metaAPP['fb:app_id'])) {
+		    Yii::$app->view->registerMetaTag([
+			    'property' => 'fb:app_id', 'content' => $metaAPP['fb:app_id']], 'fb:app_id'
+		    );
+	    } else if (Yii::$app->settings->get('facebookApp', 'Configurations')){
+		    Yii::$app->view->registerMetaTag([
+			    'property' => 'fb:app_id', 'content' => Yii::$app->settings->get('facebookApp', 'Configurations')], 'fb:app_id'
+		    );
+	    }
+
+	    return $this;
+    }
+
     /**
      * Set Social App meta tag
      *
@@ -209,15 +231,7 @@ class Seo extends Component
     public function setSocialAPP(array $metaAPP = [])
     {
         // Facebook APP ID
-        if (!empty($metaAPP['fb:app_id'])) {
-            Yii::$app->view->registerMetaTag([
-                'name' => 'fb:app_id', 'content' => $metaAPP['fb:app_id']], 'fb:app_id'
-            );
-        } else if (Yii::$app->settings->get('facebookApp', 'Configurations')){
-            Yii::$app->view->registerMetaTag([
-                'name' => 'fb:app_id', 'content' => Yii::$app->settings->get('facebookApp', 'Configurations')], 'fb:app_id'
-            );
-        }
+		$this->setFacebookAPPId($metaAPP);
 
         // Apple iTunes APP ID
         if (!empty($metaAPP['apple-itunes-app'])) {
