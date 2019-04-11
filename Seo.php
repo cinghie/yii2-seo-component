@@ -19,19 +19,54 @@ use yii\helpers\Html;
 /**
  * Class SEO
  *
+ * @property string $title
+ * @property string $description
+ * @property string $image
+ * @property string $canonical
  * @property string $copyright
  * @property string $keywords
  * @property string $author
  * @property array $meta
- * @property string $description
  * @property array $socialAPP
- * @property string $canonical
  * @property string $robots
- * @property string $title
  * @property array $verifyCodes
  */
 class Seo extends Component
 {
+	/**
+	 * Register open graph sitename
+	 *
+	 * return $this
+	 */
+	public function setSitename()
+	{
+		if(Yii::$app->settings->get('siteName', 'Configurations')) {
+			Yii::$app->view->registerMetaTag(
+				['name' => 'og:site_name', 'content' => Yii::$app->settings->get('siteName', 'Configurations')], 'og:site_name'
+			);
+		}
+
+		return $this;
+	}
+
+	/**
+	 * Register open graph image
+	 *
+	 * @param string $imageUrl
+	 *
+	 * @return $this
+	 */
+	public function setImage($imageUrl = '')
+	{
+		if($imageUrl) {
+			Yii::$app->view->registerMetaTag(
+				['name' => 'og:image', 'content' => $imageUrl], 'og:image'
+			);
+		}
+
+		return $this;
+	}
+
     /**
      * Register title meta and open graph title meta
      *
@@ -378,6 +413,7 @@ class Seo extends Component
     public function setMeta($settings)
     {
         $this->setTitle($settings['title'])
+	         ->setSitename()
              ->setDescription()
              ->setKeywords()
              ->setRobots()
@@ -386,5 +422,4 @@ class Seo extends Component
              ->setSocialAPP()
              ->setVerifyCodes();
     }
-    
 }
