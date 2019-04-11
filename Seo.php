@@ -221,6 +221,17 @@ class Seo extends Component
 	    return $this;
     }
 
+    public function setFacebookPageId($pageID = '')
+    {
+	    if ($pageID) {
+		    Yii::$app->view->registerMetaTag([
+			    'property' => 'fb:page_id', 'content' => $pageID], 'fb:page_id'
+		    );
+	    }
+
+    	return $this;
+    }
+
     /**
      * Set Social App meta tag
      *
