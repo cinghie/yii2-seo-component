@@ -42,7 +42,7 @@ class Seo extends Component
 	{
 		if(Yii::$app->settings->get('siteName', 'Configurations')) {
 			Yii::$app->view->registerMetaTag(
-				['name' => 'og:site_name', 'content' => Yii::$app->settings->get('siteName', 'Configurations')], 'og:site_name'
+				['property' => 'og:site_name', 'content' => Yii::$app->settings->get('siteName', 'Configurations')], 'og:site_name'
 			);
 		}
 
@@ -60,7 +60,7 @@ class Seo extends Component
 	{
 		if($imageUrl) {
 			Yii::$app->view->registerMetaTag(
-				['name' => 'og:image', 'content' => $imageUrl], 'og:image'
+				['property' => 'og:image', 'content' => $imageUrl], 'og:image'
 			);
 		}
 
@@ -81,7 +81,7 @@ class Seo extends Component
                 ['name' => 'title', 'content' => $title], 'title'
             );
             Yii::$app->view->registerMetaTag(
-                ['name' => 'og:title', 'content' => $title], 'og:title'
+                ['property' => 'og:title', 'content' => $title], 'og:title'
             );
             Yii::$app->view->title = $title;
         }
@@ -102,14 +102,14 @@ class Seo extends Component
                 ['name' => 'description', 'content' => $description], 'description'
             );
             Yii::$app->view->registerMetaTag(
-                ['name' => 'og:description', 'content' => $description], 'og:description'
+                ['property' => 'og:description', 'content' => $description], 'og:description'
             );
         } elseif(Yii::$app->settings->get('siteDescription', 'Configurations')) {
             Yii::$app->view->registerMetaTag(
                 ['name' => 'description', 'content' => Yii::$app->settings->get('siteDescription', 'Configurations')], 'description'
             );
             Yii::$app->view->registerMetaTag(
-                ['name' => 'og:description', 'content' => Yii::$app->settings->get('siteDescription', 'Configurations')], 'og:description'
+                ['property' => 'og:description', 'content' => Yii::$app->settings->get('siteDescription', 'Configurations')], 'og:description'
             );
         }
         return $this;
