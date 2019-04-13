@@ -57,20 +57,50 @@ Configuration
 Usage
 ------
 
-Once the extension is installed, simply use it in your code adding on your main view:
+Set Verify Codes
 
 ```
-Yii::$app->seo->setMeta(['title' => $this->title]);
+Yii::$app->seo->setMetaTags([
+    'title' => $this->title, // default: $this->title
+    'author' => '', // default: Yii::$app->settings->get('siteAuthor', 'Configurations')
+    'copyright' => '', // default: Yii::$app->settings->get('siteCopyright', 'Configurations') 
+    'description' => '', // default: Yii::$app->settings->get('siteDescription', 'Configurations')
+    'keywords' => '', // default: Yii::$app->settings->get('siteKeywords', 'Configurations')
+    'robots' => '',
+]);
 ```
 
-and on rendering your page you can set your meta information like:
+Set OpenGraph
 
 ```
-Yii::$app->seo->setDescrption('Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua');
+Yii::$app->seo->setOpenGraph([
+    'title' => $this->title, // default: $this->title
+    'description' => '', // default: Yii::$app->settings->get('siteDescription', 'Configurations')
+    'image' => $this->image, // default: null
+    'sitename' => '', // default: Yii::$app->settings->get('siteName', 'Configurations')
+    'type' => 'article', // default: 'article'
+    'url' => '', // default: Yii::$app->request->absoluteUrl
+]);
 ```
 
-or can manually set Microdata Snippet like:
+Set Social APP
 
 ```
-setMicrodata($type,$name,$email,$phone,$logo,$url=);
+Yii::$app->seo->setSocialAPP([
+    'fb:app_id' => 'FACEBOOK_APP_ID',
+    'apple-itunes-app' => 'APPLE_ITUNE_APP',
+    'google-play-app' => 'GOOGLE_PLAY_APP',
+]);
 ```
+
+Set Verify Codes
+
+```
+Yii::$app->seo->setVerifyCodes([
+	'alexaVerify' => 'ALEXA_VERIFY_CODE',
+	'bingVerify' => 'BING_VERIFY_CODE',
+	'googleVerify' => 'GOOGLE_VERIFY_CODE',
+	'yandexVerify' => 'YANDEX_VERIFY_CODE',
+]);
+```
+

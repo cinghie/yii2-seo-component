@@ -7,7 +7,7 @@
  * @github https://github.com/cinghie/yii2-seo-component
  * @license GNU GENERAL PUBLIC LICENSE VERSION 3
  * @package yii2-seo-component
- * @version 0.1.0
+ * @version 1.1.0
  */
 
 namespace cinghie\seo;
@@ -37,6 +37,8 @@ use yii\helpers\Html;
  * @property string $socialApp
  * @property string $verifyCode
  * @property string $verifyCodes
+ * @property string $metaTags
+ * @property string $openGraph
  */
 class Seo extends Component
 {
@@ -168,7 +170,7 @@ class Seo extends Component
 	 *
 	 * @return $this
 	 */
-	public function setRobots($robots= '')
+	public function setRobots($robots = '')
 	{
 		if ($robots) {
 			Yii::$app->view->registerMetaTag(
@@ -192,6 +194,8 @@ class Seo extends Component
 	 */
 	public function setOpenGraphTitle($title = '')
 	{
+		$title = $title ?: $this->title;
+
 		if ($title) {
 			Yii::$app->view->registerMetaTag(
 				['property' => 'og:title', 'content' => $title], 'og:title'
@@ -208,9 +212,9 @@ class Seo extends Component
 	 *
 	 * @return $this
 	 */
-	public function setOpenGraphType($type = '')
+	public function setOpenGraphType($type = 'article')
 	{
-		if ($type) {
+		if($type) {
 			Yii::$app->view->registerMetaTag(
 				['property' => 'og:type', 'content' => $type], 'og:type'
 			);
@@ -222,15 +226,19 @@ class Seo extends Component
 	/**
 	 * Register OpenGraph site_name
 	 *
+	 * @param string $siteName
+	 *
 	 * @return $this
 	 */
-	public function setOpenGraphSiteName()
+	public function setOpenGraphSiteName($siteName)
 	{
-		if(Yii::$app->settings->get('siteName', 'Configurations')) {
-			Yii::$app->view->registerMetaTag(
-				['property' => 'og:site_name', 'content' => Yii::$app->settings->get('siteName', 'Configurations')], 'og:site_name'
-			);
+		if(!$siteName) {
+			$siteName = Yii::$app->settings->get('siteName', 'Configurations') ?: Yii::$app->name;
 		}
+
+		Yii::$app->view->registerMetaTag(
+			['property' => 'og:site_name', 'content' => $siteName], 'og:site_name'
+		);
 
 		return $this;
 	}
@@ -266,11 +274,11 @@ class Seo extends Component
 	 */
 	public function setOpenGraphUrl($url = '')
 	{
-		if($url) {
-			Yii::$app->view->registerMetaTag(
-				['property' => 'og:url', 'content' => $url], 'og:url'
-			);
-		}
+		$url = $url ?: Yii::$app->request->absoluteUrl;
+
+		Yii::$app->view->registerMetaTag(
+			['property' => 'og:url', 'content' => $url], 'og:url'
+		);
 
 		return $this;
 	}
@@ -289,6 +297,24 @@ class Seo extends Component
 				['property' => 'og:image', 'content' => $imageUrl], 'og:image'
 			);
 		}
+
+		return $this;
+	}
+
+	/**
+	 * Register OpenGraph locale
+	 *
+	 * @param $lang
+	 *
+	 * @return $this
+	 */
+	public function setOpenGraphLocale($lang = '')
+	{
+		$lang = $lang ?: str_replace('-','_',Yii::$app->sourceLanguage);
+
+		Yii::$app->view->registerMetaTag(
+			['property' => 'og:locale', 'content' => $lang], 'og:locale'
+		);
 
 		return $this;
 	}
@@ -334,6 +360,37 @@ class Seo extends Component
 	}
 
 	/**
+	 * Set Meta Informations
+	 *
+	 * @param array $settings
+	 */
+	public function setMetaTags($settings)
+	{
+		$this->setTitle($settings['title'])
+			->setDescription($settings['description'])
+			->setKeywords($settings['keywords'])
+			->setRobots($settings['robots'])
+			->setAuthor($settings['author'])
+			->setCopyright($settings['copyright']);
+	}
+
+	/**
+	 * Set Open Graph
+	 *
+	 * @param array $settings
+	 */
+	public function setOpenGraph($settings)
+	{
+		$this->setOpenGraphTitle($settings['title'])
+			 ->setOpenGraphDescription($settings['description'])
+			 ->setOpenGraphType($settings['type'])
+			 ->setOpenGraphUrl($settings['url'])
+			 ->setOpenGraphImage($settings['image'])
+			 ->setOpenGraphLocale()
+			 ->setOpenGraphSitename($settings['sitename']);
+	}
+
+	/**
 	 * Set Social App Meta Tags
 	 *
 	 * @param array $metaApp
@@ -343,12 +400,11 @@ class Seo extends Component
 	public function setSocialApp(array $metaApp = [])
 	{
 		// Facebook App ID
-		if ($metaApp['fb:app_id']) {
-			$this->setFacebookAppId($metaApp['fb:app_id']);
-		}
+		$FbAppId = isset($metaApp['fb:app_id']) ? $metaApp['fb:app_id'] : '';
+		$this->setFacebookAppId($FbAppId);
 
 		// Apple iTunes App ID
-		if ($metaApp['apple-itunes-app']) {
+		if (isset($metaApp['apple-itunes-app']) && $metaApp['apple-itunes-app']) {
 			Yii::$app->view->registerMetaTag([
 				'name' => 'apple-itunes-app', 'content' => $metaApp['apple-itunes-app']], $metaApp['apple-itunes-app']
 			);
@@ -359,7 +415,7 @@ class Seo extends Component
 		}
 
 		// Android Play Store App Package
-		if ($metaApp['google-play-app']) {
+		if (isset($metaApp['google-play-app']) && $metaApp['google-play-app']) {
 			Yii::$app->view->registerMetaTag([
 				'name' => 'google-play-app', 'content' => 'app-id=' .$metaApp['google-play-app']], 'google-play-app'
 			);
@@ -373,23 +429,6 @@ class Seo extends Component
 	}
 
 	/**
-	 * Set Verification Meta Tag
-	 *
-	 * @param string $name
-	 * @param string $content
-	 *
-	 * @return $this
-	 */
-	public function setVerifyCode($name,$content)
-	{
-		Yii::$app->view->registerMetaTag(
-			['name' => $name, 'content' => $content], $name
-		);
-
-		return $this;
-	}
-
-	/**
 	 * Set Verifications Meta Tags
 	 *
 	 * @param array $verifyCodes
@@ -398,66 +437,38 @@ class Seo extends Component
 	 */
 	public function setVerifyCodes(array $verifyCodes = [])
 	{
-		if (!empty($verifyCodes)) {
-			foreach($verifyCodes as $key => $value) {
-				Yii::$app->view->registerMetaTag(
-					['name' => $key, 'content' => $value], $key
-				);
-			}
-		}
+		$alexaVerify = $verifyCodes['alexaVerify'] ?: Yii::$app->settings->get('alexaVerify', 'Configurations');
 
-		if(Yii::$app->settings->get('alexaVerify', 'Configurations')) {
+		if($alexaVerify) {
 			Yii::$app->view->registerMetaTag(
-				['name' => 'alexaVerifyID', 'content' => Yii::$app->settings->get('alexaVerify', 'Configurations')], 'alexaVerifyID'
+				['name' => 'alexaVerifyID', 'content' => $alexaVerify], 'alexaVerifyID'
 			);
 		}
 
-		if(Yii::$app->settings->get('bingVerify', 'Configurations')) {
+		$bingVerify = $verifyCodes['bingVerify'] ?: Yii::$app->settings->get('bingVerify', 'Configurations');
+
+		if($bingVerify) {
 			Yii::$app->view->registerMetaTag(
-				['name' => 'google-site-verification', 'content' => Yii::$app->settings->get('bingVerify', 'Configurations')], 'google-site-verification'
+				['name' => 'msvalidate.01', 'content' => $bingVerify], 'msvalidate.01'
 			);
 		}
 
-		if(Yii::$app->settings->get('googleVerify', 'Configurations')) {
+		$googleVerify = $verifyCodes['googleVerify'] ?: Yii::$app->settings->get('googleVerify', 'Configurations');
+
+		if($googleVerify) {
 			Yii::$app->view->registerMetaTag(
-				['name' => 'msvalidate.01', 'content' => Yii::$app->settings->get('googleVerify', 'Configurations')], 'msvalidate.01'
+				['name' => 'google-site-verification', 'content' => $googleVerify], 'google-site-verification'
 			);
 		}
 
-		if(Yii::$app->settings->get('yandexVerify', 'Configurations')) {
+		$yandexVerify = $verifyCodes['yandexVerify'] ?: Yii::$app->settings->get('yandexVerify', 'Configurations');
+
+		if($yandexVerify) {
 			Yii::$app->view->registerMetaTag(
-				['name' => 'yandex-verification', 'content' => Yii::$app->settings->get('yandexVerify', 'Configurations')], 'yandex-verification'
+				['name' => 'yandex-verification', 'content' => $yandexVerify], 'yandex-verification'
 			);
 		}
 
 		return $this;
-	}
-
-	/**
-	 * Set Meta Informations
-	 *
-	 * @param array $settings
-	 */
-	public function setMeta($settings)
-	{
-		$this->setTitle($settings['title'])
-			->setDescription()
-			->setKeywords()
-			->setRobots()
-			->setAuthor()
-			->setCopyright()
-			->setSocialAPP()
-			->setVerifyCodes();
-	}
-
-	/**
-	 * Set Open Graph
-	 *
-	 * @param array $settings
-	 */
-	public function setOpenGraph($settings)
-	{
-		$this->setOpenGraphTitle($settings['title'])
-			 ->setOpenGraphSitename();
 	}
 }
