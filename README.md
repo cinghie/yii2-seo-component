@@ -20,7 +20,6 @@ Features
  - setAuthor
  - setCopyright
  - setRobots
- 
  - setOpenGraphTitle
  - setOpenGraphType
  - setOpenGraphSiteName
@@ -30,7 +29,6 @@ Features
  - setOpenGraphLocale
  - setFacebookAppId
  - setFacebookPageId
- 
  - setMetaTags
  - setOpenGraph
  - setSocialApp
