@@ -14,15 +14,27 @@ Features
 ---------
 
  - setTitle
+ - setCanonical
  - setDescription
  - setKeywords
  - setAuthor
  - setCopyright
  - setRobots
- - setSocialAPP
+ 
+ - setOpenGraphTitle
+ - setOpenGraphType
+ - setOpenGraphSiteName
+ - setOpenGraphDescription
+ - setOpenGraphUrl
+ - setOpenGraphImage
+ - setOpenGraphLocale
+ - setFacebookAppId
+ - setFacebookPageId
+ 
+ - setMetaTags
+ - setOpenGraph
+ - setSocialApp
  - setVerifyCodes
- - setMicroData
- - setCanonical
 
 Installation
 -------------

@@ -32,6 +32,7 @@ use yii\helpers\Html;
  * @property string $openGraphDescription
  * @property string $openGraphUrl
  * @property string $openGraphImage
+ * @property string $openGraphLocale
  * @property string $facebookPageId
  * @property string $facebookAppId
  * @property string $socialApp
