@@ -12,9 +12,9 @@
 
 namespace cinghie\seo;
 
+use Spatie\SchemaOrg\Schema;
 use Yii;
 use yii\base\Component;
-use yii\helpers\Html;
 
 /**
  * Class SEO
@@ -471,5 +471,49 @@ class Seo extends Component
 		}
 
 		return $this;
+	}
+
+	/**
+	 * Set Schem.org
+	 *
+	 * @param string $name
+	 * @param string $email
+	 * @param string $url
+	 * @param string $logo
+	 * @param string $type
+	 *
+	 * @return string
+	 */
+	public function setSchema($name = '', $email = '', $url = '', $logo = '', $type = 'localBusiness')
+	{
+		switch($type) {
+			case 'Event':
+				$schema = Schema::event();
+				break;
+			case 'Organization':
+				$schema = Schema::organization();
+				break;
+			case 'Person':
+				$schema = Schema::person();
+				break;
+			default:
+				$schema = Schema::localBusiness();
+		}
+
+		$schema->name($name);
+
+		if($email) {
+			$schema->email($email);
+		}
+
+		if($url) {
+			$schema->url($url);
+		}
+
+		if($logo) {
+			$schema->logo($logo);
+		}
+
+		return $schema;
 	}
 }
