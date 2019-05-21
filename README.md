@@ -7,8 +7,7 @@ Yii2 SEO Component
 ![Latest Commit](https://img.shields.io/github/last-commit/cinghie/yii2-seo-component.svg)
 [![Total Downloads](https://img.shields.io/packagist/dt/cinghie/yii2-seo-component.svg)](https://packagist.org/packages/cinghie/yii2-seo-component)
 
-Yii2 Component to manage SEO data and metadata developed starting from  
-https://github.com/jpunanua/yii2-seotools/blob/master/Component.php
+Yii2 Component to manage SEO data and metadata
 
 Features
 ---------
@@ -115,7 +114,7 @@ Yii::$app->seo->setVerifyCodes([
 ]);
 ```
 
-Set SEO Schema.org
+Set Script Schema.org
 
 ```
 Yii::$app->seo->setSchemaScript([
