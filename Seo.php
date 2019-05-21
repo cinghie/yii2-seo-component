@@ -484,7 +484,7 @@ class Seo extends Component
 	 *
 	 * @return string
 	 */
-	public function setSchema($name = '', $email = '', $url = '', $logo = '', $type = '')
+	public function setSchemaScript($name = '', $email = '', $url = '', $logo = '', $type = '')
 	{
 		switch($type) {
 			case 'Event':

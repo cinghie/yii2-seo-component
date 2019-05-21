@@ -33,7 +33,7 @@ Features
  - setOpenGraph
  - setSocialApp
  - setVerifyCodes
- - setSeoSchema
+ - setSchemaScript
 
 Installation
 -------------
@@ -118,7 +118,7 @@ Yii::$app->seo->setVerifyCodes([
 Set SEO Schema.org
 
 ```
-Yii::$app->seo->setSchema([
+Yii::$app->seo->setSchemaScript([
 	'NAME',
 	'EMAIL',
 	'URL',
